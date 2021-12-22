@@ -1,0 +1,21 @@
+- var appLogo = process.env.APPLOGO || ''
+- var appName = process.env.APPNAME || ''
+
+p Dear #{fullName},
+
+p Your password has been successfully changed, please login into the website with a new one!
+
+p If you believe this is an error, please contact to our Support Team immediately.
+
+#replyLink
+  if replyLink
+    a(href=replyLink style="-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #00F2C9; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; width: auto; width: auto; border-top: 1px solid #00F2C9; border-right: 1px solid #00F2C9; border-bottom: 1px solid #00F2C9; border-left: 1px solid #00F2C9; padding-top: 5px; padding-bottom: 5px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;" target="_blank")
+        span(style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;")
+            span(style="font-size: 16px; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;") Contact Us
+
+br
+
+div(style="display:flex;")
+ img(src=appLogo  alt=appName width="88" height="88" style="margin: 0; border: 0; padding: 0; vertical-align:middle;")
+ span &copy; #{(new Date()).getFullYear()} 
+ | The #{appName} #{supportPhone? `Support Team, phone: ${supportPhone}`:'Support Team'}

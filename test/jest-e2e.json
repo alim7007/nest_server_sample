@@ -1,0 +1,13 @@
+{
+    "moduleFileExtensions": ["js", "json", "ts"],
+    "rootDir": "..",
+    "testEnvironment": "node",
+    "testRegex": ".e2e-spec.ts$",
+    "transform": {
+        "^.+\\.ts$": "ts-jest"
+    },
+    "moduleNameMapper": {
+        "^firebase-admin/(.*)$": "<rootDir>/node_modules/firebase-admin/lib/$1",
+        "^src/(.*)$": "<rootDir>/src/$1"
+    }
+}

@@ -1,0 +1,62 @@
+- hosts: "{{ target }}"
+  gather_facts: no
+  tasks:
+    - name: Clean tmp folder
+      file:
+        state: absent
+        path: "{{ app_directory_tmp }}"
+    - name: Copy Files
+      synchronize:
+        src: "{{ playbook_dir }}/../."
+        dest: "{{ app_directory_tmp }}"
+        delete: yes
+        recursive: yes
+        rsync_opts:
+          - "--exclude=.git"
+          - "--exclude=.idea"
+          - "--exclude=.github"
+          - "--exclude=.gitignore"
+          - "--exclude=.DS_Store"
+          - "--exclude=node_modules"
+          - "--exclude=ansible"
+    - name: npm install
+      command: "npm install"
+      args:
+        chdir: "{{ app_directory_tmp }}"
+    - name: npm build
+      command: "npm run build"
+      args:
+        chdir: "{{ app_directory_tmp }}"
+      environment:
+        NODE_OPTIONS: "--max-old-space-size=3584"
+    - name: Get timestamp from the system
+      shell: "date +%Y-%m-%d_%H:%M:%S"
+      register: tstamp
+      ignore_errors: yes
+    - name: Create .deploy_stats
+      copy:
+        dest: "{{ app_directory_tmp }}/.deploy_stats"
+        content: |
+          DATE:           {{ tstamp.stdout[0:] }}
+          GITHUB_SHA:     {{ lookup('env','GITHUB_SHA') }}
+          GITHUB_REF:     {{ lookup('env','GITHUB_REF') }}
+          GITHUB_ACTOR:   {{ lookup('env','GITHUB_ACTOR') }}
+          GITHUB_ACTIONS: {{ lookup('env','GITHUB_ACTIONS') }}
+      ignore_errors: yes
+    - stat:
+        path: "{{ app_directory }}"
+      register: p
+    - name: Clean previous backup folder
+      file:
+        state: absent
+        path: "{{ app_directory_bak }}"
+      when: p.stat.exists
+    - name: Backup current app
+      command: mv {{ app_directory }} {{ app_directory_bak }}
+      when: p.stat.exists
+    - name: Update current app
+      command: mv {{ app_directory_tmp }} {{ app_directory }}
+    - name: pm2 start
+      command: "pm2 start {{ pm2_config_file }}"
+      args:
+        chdir: "{{ app_directory }}"

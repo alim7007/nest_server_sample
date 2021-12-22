@@ -1,0 +1,15 @@
+node_modules
+.env
+.env.staging
+.env.production
+.idea
+.vscode
+.prettierrc
+.prretireignore
+dist
+my-db
+redis-data
+.dockerignore
+Dockerfile
+docker-compose.yml
+firebase.json

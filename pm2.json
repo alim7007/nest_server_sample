@@ -1,0 +1,21 @@
+{
+    "apps": [
+        {
+            "name": "heavyE-api-server",
+            "script": "npm",
+            "args": "run start",
+            "cwd": "/var/www/heavyE-server/api-server/",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "env_staging": {
+                "NODE_ENV": "staging",
+                "NO_COLOR": "enable"
+            },
+            "env_production": {
+                "NODE_ENV": "production",
+                "NO_COLOR": "enable"
+            }
+        }
+    ]
+}

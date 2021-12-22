@@ -1,0 +1,14 @@
+- var appLogo = `${process.env.AWS_S3_URL}${process.env.APPLOGO}` || ''
+- var appName = process.env.APPNAME || ''
+p Dear #{fullName},
+
+p You or someone else requested verification code by email!
+
+p Please provide the code below in order to verify your email address:
+p <strong>#{otpCode}</strong>
+               
+p If you didn't request an email verification, please disregard this message.
+
+div(style="display:flex;")
+ img(src=appLogo  alt=appName width="48" height="48" style="margin: 0; margin-right: 1rem; border: 0; padding: 0; vertical-align:middle;")
+ span &copy; #{(new Date()).getFullYear()}  |  The #{appName} #{supportPhone? `Support Team, phone: ${supportPhone}`:'Support Team'}

@@ -1,0 +1,15 @@
+- var appLogo = process.env.APPLOGO || ''
+- var appName = process.env.APPNAME || ''
+p Dear #{fullName},
+
+p You or someone else has requested a verification code to change your email address!
+
+p Please enter this code in the application to verify your change email request:
+p <strong>#{otpCode}</strong>
+               
+p If you didn't request the change email verification, please disregard this message.
+
+div(style="display:flex;")
+ img(src=appLogo  alt=appName width="88" height="88" style="margin: 0; border: 0; padding: 0; vertical-align:middle;")
+ span &copy; #{(new Date()).getFullYear()} 
+ | The #{appName} #{supportPhone? `Support Team, phone: ${supportPhone}`:'Support Team'}

@@ -1,0 +1,11 @@
+[staging-api-server]
+stage ansible_host=ec2-3-13-11-208.us-east-2.compute.amazonaws.com ansible_user=off_market_user
+
+[production-api-server]
+production ansible_host=ec2-18-116-134-121.us-east-2.compute.amazonaws.com ansible_user=off_market_user
+
+[all:vars]
+app_directory=/var/www/off-market-server/api-server
+app_directory_bak=/var/www/off-market-server/backups/api-server/
+app_directory_tmp=/var/www/off-market-server/api-server-tmp/
+pm2_config_file=pm2.json
